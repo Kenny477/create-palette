@@ -19,12 +19,17 @@ class Palette:
     def rgb_to_hex(self, rgb):
         return '#%02x%02x%02x' % (int(rgb[0]), int(rgb[1]), int(rgb[2]))
 
+    # TODO: Work on filtering out neutrals/unwanted colors
+    def pixelFilter(self, rgb):
+        return rgb.std() > 2
+
     def dominantColors(self, neutral=True):
         #read image
         img = np.array(self.IMAGE)
 
         #reshaping to a list of pixels
         img = img.reshape((img.shape[0] * img.shape[1], 3))
+        img = img if neutral else [rgb for rgb in img if self.pixelFilter(rgb)]
 
         #using k-means to cluster pixels
         kmeans = KMeans(n_clusters = self.CLUSTERS, random_state=477)
@@ -84,7 +89,7 @@ clusters = 10
 
 p = Palette(img, clusters, downsize=0.01) 
 colors = p.dominantColors(neutral=False)
-p.plotClusters(save='img1-clusters.png')
-p.drawPalette(100, save='img1-palette.png')
+p.plotClusters(save='img1-clusters-no-neutral.png')
+p.drawPalette(100, save='img1-palette-no-neutral.png')
 print(colors)
 
