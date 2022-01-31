@@ -13,6 +13,7 @@ class Palette:
     def __init__(self, image, clusters: int = 3, downsize: float = 1.00):
         img = Image.open(image)
         img = img.resize((round(img.size[0]*downsize), round(img.size[1]*downsize)), Image.LANCZOS)
+        print(img.size[0], img.size[1])
         img.save('img1-downsized.png')
         self.IMAGE = img
         self.CLUSTERS = clusters
@@ -22,7 +23,7 @@ class Palette:
 
     # TODO: Work on filtering out neutrals/unwanted colors
     def pixelFilter(self, rgb):
-        return rgb.std() > 7
+        return True
 
     def dominantColors(self, neutral=True):
         #read image
