@@ -15,7 +15,7 @@ class Palette:
         self.WIDTH = img.size[0]
         self.HEIGHT = img.size[1]
         img = img.resize((round(img.size[0]*downsize), round(img.size[1]*downsize)), Image.LANCZOS)
-        img.save('img1-downsized.png')
+        # img.save('img1-downsized.png')
         self.IMAGE = img
         self.CLUSTERS = clusters
 
