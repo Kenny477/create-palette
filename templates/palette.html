@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>cPalette</title>
+    <link
+      rel="stylesheet"
+      href="{{url_for('static',filename='css/main.css')}}"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dongle&family=Work+Sans&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <nav class="py-2 px-4">
+      <a href="/"><h1 class="text-2xl">cPalette</h1></a>
+    </nav>
+    <div class="flex flex-row">
+      <div id="info" class="w-1/2 p-10 flex flex-col">
+        <h1 class="text-xl">Info</h1>
+        <p class="text-lg">Filename: {{info.filename}}</p>
+        <p class="text-lg">Dimensions: {{info.width}} x {{info.height}}</p>
+        <img src="data:image/jpeg;base64,{{ info.palette }}" alt="Uploaded image" />
+        <div class="flex flex-row">
+          {%- for color in info.colors %}
+            <p class="w-[100px] text-center">{{color}}</p>
+          {% endfor -%}
+        </div>
+      </div>
+      <div id="display" class="w-1/2 p-10">
+        <img src="data:image/jpeg;base64,{{ info.image }}" alt="Uploaded image" />
+      </div>
+    </div>
+  </body>
+</html>

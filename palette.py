@@ -12,14 +12,18 @@ class Palette:
     
     def __init__(self, image, clusters: int = 3, downsize: float = 1.00):
         img = Image.open(image)
+        self.WIDTH = img.size[0]
+        self.HEIGHT = img.size[1]
         img = img.resize((round(img.size[0]*downsize), round(img.size[1]*downsize)), Image.LANCZOS)
-        print(img.size[0], img.size[1])
         img.save('img1-downsized.png')
         self.IMAGE = img
         self.CLUSTERS = clusters
-    
+
     def rgb_to_hex(self, rgb):
         return '#%02x%02x%02x' % (int(rgb[0]), int(rgb[1]), int(rgb[2]))
+
+    def get_size(self):
+        return (self.WIDTH, self.HEIGHT)
 
     # TODO: Work on filtering out neutrals/unwanted colors
     def pixelFilter(self, rgb):
@@ -82,16 +86,12 @@ class Palette:
 
         if save:
             img.save(save)
-        else:
-            img.show()
+        return img
 
-
-img = 'img1.jpg'
-clusters = 10
-
-p = Palette(img, clusters, downsize=0.1) 
-colors = p.dominantColors(neutral=False)
-p.plotClusters(save='img1-clusters-downsized.png')
-p.drawPalette(100, save='img1-palette-downsized.png')
-print(colors)
+def create_palette(image, clusters=10) -> tuple:
+    p = Palette(image, clusters, downsize=0.1) 
+    colors = p.dominantColors(neutral=False)
+    colors = [p.rgb_to_hex(color) for color in colors]
+    size = p.get_size()
+    return (p.drawPalette(100), colors, size[0], size[1])
 
