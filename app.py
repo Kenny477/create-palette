@@ -23,14 +23,9 @@ def palette():
         if(f.filename == ''):
             flash('No file selected', 'error')
             return redirect('/')
-        im = Image.open(f)
-        data = io.BytesIO()
-        im.save(data, format='JPEG')  # this is the step that takes the longest
-        encoded = base64.b64encode(data.getvalue()).decode('utf-8')
+        encoded = base64.b64encode(f.read()).decode('utf-8')
         palette, colors, width, height = create_palette(f)
-        palette_data = io.BytesIO()
-        palette.save(palette_data, format='JPEG')
-        palette_encoded = base64.b64encode(palette_data.getvalue()).decode('utf-8')
+        palette_encoded = base64.b64encode(palette.getvalue()).decode('utf-8')
         info = {
             'image': encoded,
             'palette': palette_encoded,
