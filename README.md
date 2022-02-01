@@ -3,6 +3,8 @@ Python algorithm to create a color palette using k-means clustering from an imag
 
 Includes mini Flask app to upload and process image files.
 
+This app does not store the images on disk for enhanced security.
+
 ## Setup
 
 Install dependencies with
