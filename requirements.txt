@@ -3,4 +3,3 @@ pillow
 sklearn
 numpy
 matplotlib
-gunicorn
