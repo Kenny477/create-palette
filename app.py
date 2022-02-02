@@ -25,6 +25,8 @@ def palette():
             return redirect('/')
         encoded = base64.b64encode(f.read()).decode('utf-8')
         palette, colors, width, height = create_palette(f)
+        palette_data = io.BytesIO()
+        palette.save(palette_data, format='JPEG')
         palette_encoded = base64.b64encode(palette.getvalue()).decode('utf-8')
         info = {
             'image': encoded,

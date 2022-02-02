@@ -87,9 +87,7 @@ class Palette:
 
         if save:
             img.save(save)
-        palette_data = io.BytesIO()
-        img.save(palette_data, format='JPEG')
-        return palette_data
+        return img
 
 def create_palette(image, clusters=10) -> tuple:
     p = Palette(image, clusters, downsize=0.1) 
